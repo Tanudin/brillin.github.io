@@ -141,27 +141,40 @@
       </div>
 
       <div id="success" class="hidden">
-        <h1>✅ Reset Link Verified!</h1>
+        <h1>âœ… Reset Link Verified!</h1>
         <div class="status success" id="statusMessage">
           Your password reset link has been verified.
         </div>
-        <a href="#" id="openAppLink" class="app-link">Open DivorceApp</a>
+
+        <!-- Token Display for Manual Testing -->
+        <div id="tokenDisplay" style="margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 8px; font-size: 12px; text-align: left; word-break: break-all;">
+          <strong>Tokens for Manual Testing:</strong><br><br>
+          <strong>Access Token:</strong><br>
+          <code id="accessToken" style="background: white; padding: 8px; display: block; margin: 5px 0; cursor: pointer;" onclick="copyText('accessToken')"></code><br>
+          <strong>Refresh Token:</strong><br>
+          <code id="refreshToken" style="background: white; padding: 8px; display: block; margin: 5px 0; cursor: pointer;" onclick="copyText('refreshToken')"></code><br>
+          <strong>Type:</strong> <span id="tokenType"></span><br><br>
+          <button onclick="copyTokenCommand()" style="padding: 12px 24px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+            ðŸ“‹ Copy Console Command
+          </button>
+          <div id="copyStatus" style="color: green; margin-top: 10px; font-weight: 600; display: none;">âœ… Copied to clipboard!</div>
+        </div>
+
+        <a href="#" id="openAppLink" class="app-link">Open Doplan App</a>
 
         <div class="instructions">
           <h2>What to do next:</h2>
           <ol>
-            <li>Click the button above to open the DivorceApp</li>
-            <li>
-              If the app doesn't open automatically, install it from the app
-              store
-            </li>
-            <li>Once in the app, you'll be able to set your new password</li>
+            <li>Click "Copy Console Command" button above</li>
+            <li>Open your Expo Go app debug console (shake phone â†’ Debug Remote JS)</li>
+            <li>Paste and run the command in the console</li>
+            <li>The app will set the session and show the new password screen</li>
           </ol>
         </div>
       </div>
 
       <div id="error" class="hidden">
-        <h1>⚠️ Invalid Reset Link</h1>
+        <h1>âš ï¸ Invalid Reset Link</h1>
         <div class="status error" id="errorMessage">
           This password reset link is invalid or has expired.
         </div>
@@ -218,30 +231,38 @@
         // Success!
         document.getElementById("success").classList.remove("hidden");
 
-        // Build the deep link URL with all parameters
+        // Display tokens
+        document.getElementById('accessToken').textContent = params.access_token;
+        document.getElementById('refreshToken').textContent = params.refresh_token || 'N/A';
+        document.getElementById('tokenType').textContent = params.type;
+
+        // Build the deep link URL
         const deepLinkUrl = `doplan://auth/callback${window.location.hash}`;
+        document.getElementById("openAppLink").href = deepLinkUrl;
 
-        // Set the app link
-        const appLink = document.getElementById("openAppLink");
-        appLink.href = deepLinkUrl;
+        // Add copy functions
+        window.copyText = function(elementId) {
+          const text = document.getElementById(elementId).textContent;
+          navigator.clipboard.writeText(text);
+          showCopyStatus();
+        };
 
-        // If on mobile, try to open the app automatically
-        if (isMobile()) {
-          document.getElementById("statusMessage").textContent =
-            "Attempting to open the DivorceApp...";
+        window.copyTokenCommand = function() {
+          const command = `window.globalSupabase.auth.setSession({
+  access_token: "${params.access_token}",
+  refresh_token: "${params.refresh_token || ''}"
+})`;
+          navigator.clipboard.writeText(command).then(() => {
+            showCopyStatus();
+          });
+        };
 
-          // Try to open the app
-          window.location.href = deepLinkUrl;
-
-          // Fallback message after a delay
+        function showCopyStatus() {
+          const status = document.getElementById('copyStatus');
+          status.style.display = 'block';
           setTimeout(() => {
-            document.getElementById("statusMessage").innerHTML =
-              "<strong>App not opening?</strong><br>Make sure you have DivorceApp installed on your device.";
+            status.style.display = 'none';
           }, 3000);
-        } else {
-          // Desktop user
-          document.getElementById("statusMessage").innerHTML =
-            "<strong>Mobile device required</strong><br>Please open this link on your mobile device where DivorceApp is installed.";
         }
       }
 
