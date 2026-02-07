@@ -1,273 +1,241 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DivorceApp - Password Reset</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-          Cantarell, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-      }
-
-      .container {
-        background: white;
-        border-radius: 20px;
-        padding: 40px;
-        max-width: 500px;
-        width: 100%;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        text-align: center;
-      }
-
-      .spinner {
-        width: 50px;
-        height: 50px;
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #667eea;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 20px;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        100% {
-          transform: rotate(360deg);
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-      }
 
-      h1 {
-        color: #333;
-        margin-bottom: 15px;
-        font-size: 24px;
-      }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
 
-      p {
-        color: #666;
-        line-height: 1.6;
-        margin-bottom: 15px;
-      }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
 
-      .status {
-        margin: 20px 0;
-        padding: 15px;
-        border-radius: 10px;
-        font-weight: 500;
-      }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-      .status.success {
-        background-color: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
-      }
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
 
-      .status.error {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-      }
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
 
-      .status.info {
-        background-color: #d1ecf1;
-        color: #0c5460;
-        border: 1px solid #bee5eb;
-      }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
 
-      .app-link {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 15px 30px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        text-decoration: none;
-        border-radius: 10px;
-        font-weight: 600;
-        transition: transform 0.2s;
-      }
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
 
-      .app-link:hover {
-        transform: translateY(-2px);
-      }
+        .status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
 
-      .instructions {
-        margin-top: 30px;
-        padding-top: 30px;
-        border-top: 1px solid #eee;
-      }
+        .status.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
 
-      .instructions h2 {
-        font-size: 18px;
-        color: #333;
-        margin-bottom: 15px;
-      }
+        .app-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
 
-      .instructions ol {
-        text-align: left;
-        padding-left: 20px;
-      }
+        .app-link:hover {
+            transform: translateY(-2px);
+        }
 
-      .instructions li {
-        margin-bottom: 10px;
-        color: #666;
-      }
+        .instructions {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
 
-      .hidden {
-        display: none;
-      }
+        .instructions h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <div id="loading">
-        <div class="spinner"></div>
-        <h1>Processing Password Reset...</h1>
-        <p>Please wait while we verify your reset link.</p>
-      </div>
-
-      <div id="success" class="hidden">
-        <h1>âœ… Reset Link Verified!</h1>
-        <div class="status success" id="statusMessage">
-          Your password reset link has been verified.
+        <div id="loading">
+            <div class="spinner"></div>
+            <h1>Processing Password Reset...</h1>
+            <p>Please wait while we verify your reset link.</p>
         </div>
 
-        <!-- Token Display for Manual Testing -->
-        <div id="tokenDisplay" style="margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 8px; font-size: 12px; text-align: left; word-break: break-all;">
-          <strong>Tokens for Manual Testing:</strong><br><br>
-          <strong>Access Token:</strong><br>
-          <code id="accessToken" style="background: white; padding: 8px; display: block; margin: 5px 0; cursor: pointer;" onclick="copyText('accessToken')"></code><br>
-          <strong>Refresh Token:</strong><br>
-          <code id="refreshToken" style="background: white; padding: 8px; display: block; margin: 5px 0; cursor: pointer;" onclick="copyText('refreshToken')"></code><br>
-          <strong>Type:</strong> <span id="tokenType"></span><br><br>
-          <button onclick="copyTokenCommand()" style="padding: 12px 24px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
-            ðŸ“‹ Copy Console Command
-          </button>
-          <div id="copyStatus" style="color: green; margin-top: 10px; font-weight: 600; display: none;">âœ… Copied to clipboard!</div>
+        <div id="success" class="hidden">
+            <h1>âœ… Reset Link Verified!</h1>
+            <div class="status success" id="statusMessage">
+                Your password reset link has been verified.
+            </div>
+            <a href="#" id="openAppLink" class="app-link">Open Doplan App</a>
+            
+            <div class="instructions">
+                <h2>What to do next:</h2>
+                <ol>
+                    <li>Click the button above to open the Doplan app</li>
+                    <li>If the app doesn't open automatically, make sure Doplan is installed</li>
+                    <li>Once in the app, you'll be able to set your new password</li>
+                </ol>
+            </div>
         </div>
 
-        <a href="#" id="openAppLink" class="app-link">Open Doplan App</a>
-
-        <div class="instructions">
-          <h2>What to do next:</h2>
-          <ol>
-            <li>Click "Copy Console Command" button above</li>
-            <li>Open your Expo Go app debug console (shake phone â†’ Debug Remote JS)</li>
-            <li>Paste and run the command in the console</li>
-            <li>The app will set the session and show the new password screen</li>
-          </ol>
+        <div id="error" class="hidden">
+            <h1>âš ï¸ Invalid Reset Link</h1>
+            <div class="status error" id="errorMessage">
+                This password reset link is invalid or has expired.
+            </div>
+            <p>Please request a new password reset link from the app.</p>
         </div>
-      </div>
-
-      <div id="error" class="hidden">
-        <h1>âš ï¸ Invalid Reset Link</h1>
-        <div class="status error" id="errorMessage">
-          This password reset link is invalid or has expired.
-        </div>
-        <p>Please request a new password reset link from the app.</p>
-      </div>
     </div>
 
     <script>
-      // Extract hash parameters
-      function getHashParams() {
-        const hash = window.location.hash.substring(1);
-        const params = new URLSearchParams(hash);
-        return {
-          access_token: params.get("access_token"),
-          refresh_token: params.get("refresh_token"),
-          type: params.get("type"),
-          error: params.get("error"),
-          error_description: params.get("error_description"),
-        };
-      }
-
-      // Check if user is on mobile
-      function isMobile() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent,
-        );
-      }
-
-      // Main function
-      function handleCallback() {
-        const params = getHashParams();
-
-        console.log("Callback params:", params);
-
-        // Hide loading
-        document.getElementById("loading").classList.add("hidden");
-
-        // Check for errors
-        if (params.error) {
-          document.getElementById("error").classList.remove("hidden");
-          document.getElementById("errorMessage").textContent =
-            params.error_description || "An error occurred. Please try again.";
-          return;
+        // Extract hash parameters
+        function getHashParams() {
+            const hash = window.location.hash.substring(1);
+            const params = new URLSearchParams(hash);
+            return {
+                access_token: params.get('access_token'),
+                refresh_token: params.get('refresh_token'),
+                type: params.get('type'),
+                error: params.get('error'),
+                error_description: params.get('error_description')
+            };
         }
 
-        // Check if we have the required tokens
-        if (!params.access_token || params.type !== "recovery") {
-          document.getElementById("error").classList.remove("hidden");
-          document.getElementById("errorMessage").textContent =
-            "Missing authentication tokens. Please request a new reset link.";
-          return;
+        // Check if user is on mobile
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         }
 
-        // Success!
-        document.getElementById("success").classList.remove("hidden");
+        // Main function
+        function handleCallback() {
+            const params = getHashParams();
+            
+            console.log('Callback params:', params);
 
-        // Display tokens
-        document.getElementById('accessToken').textContent = params.access_token;
-        document.getElementById('refreshToken').textContent = params.refresh_token || 'N/A';
-        document.getElementById('tokenType').textContent = params.type;
+            // Hide loading
+            document.getElementById('loading').classList.add('hidden');
 
-        // Build the deep link URL
-        const deepLinkUrl = `doplan://auth/callback${window.location.hash}`;
-        document.getElementById("openAppLink").href = deepLinkUrl;
+            // Check for errors
+            if (params.error) {
+                document.getElementById('error').classList.remove('hidden');
+                document.getElementById('errorMessage').textContent = 
+                    params.error_description || 'An error occurred. Please try again.';
+                return;
+            }
 
-        // Add copy functions
-        window.copyText = function(elementId) {
-          const text = document.getElementById(elementId).textContent;
-          navigator.clipboard.writeText(text);
-          showCopyStatus();
-        };
+            // Check if we have the required tokens
+            if (!params.access_token || params.type !== 'recovery') {
+                document.getElementById('error').classList.remove('hidden');
+                document.getElementById('errorMessage').textContent = 
+                    'Missing authentication tokens. Please request a new reset link.';
+                return;
+            }
 
-        window.copyTokenCommand = function() {
-          const command = `window.globalSupabase.auth.setSession({
-  access_token: "${params.access_token}",
-  refresh_token: "${params.refresh_token || ''}"
-})`;
-          navigator.clipboard.writeText(command).then(() => {
-            showCopyStatus();
-          });
-        };
+            // Success!
+            document.getElementById('success').classList.remove('hidden');
 
-        function showCopyStatus() {
-          const status = document.getElementById('copyStatus');
-          status.style.display = 'block';
-          setTimeout(() => {
-            status.style.display = 'none';
-          }, 3000);
+            // Build the deep link URL with all parameters
+            const deepLinkUrl = `doplan://auth/callback${window.location.hash}`;
+            
+            // Set the app link
+            const appLink = document.getElementById('openAppLink');
+            appLink.href = deepLinkUrl;
+
+            // If on mobile, try to open the app automatically
+            if (isMobile()) {
+                document.getElementById('statusMessage').textContent = 
+                    'Attempting to open Doplan...';
+                
+                // Try to open the app
+                window.location.href = deepLinkUrl;
+                
+                // Fallback message after a delay
+                setTimeout(() => {
+                    document.getElementById('statusMessage').innerHTML = 
+                        '<strong>App not opening?</strong><br>Make sure you have Doplan installed on your device.';
+                }, 3000);
+            } else {
+                // Desktop user
+                document.getElementById('statusMessage').innerHTML = 
+                    '<strong>Mobile device required</strong><br>Please open this link on your mobile device where Doplan is installed.';
+            }
         }
-      }
 
-      // Run on page load
-      handleCallback();
+        // Run on page load
+        handleCallback();
     </script>
-  </body>
+</body>
 </html>
